@@ -20,7 +20,7 @@ setResult(result.slice(0,-1))
     
   }
   return (
-    <div className="container">fggdfdkfgdfjgldkfjgldfjgldjglkdfjgldfjglkdjfglkdfjglkdjfglfdjglkdjfglkdfjgkldfjgkldfjgldf
+    <div className="container">
       <form> 
         <input type="text" value={result}/>
       </form>
