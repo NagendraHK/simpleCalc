@@ -2,21 +2,20 @@ import React, { useState } from "react";
 import "./App.css";
 
 const App = () => {
-  
   const [result, setResult] = useState("");
 
-  const handleClick = (e) => {
-    setResult(result.concat(e.target.name));
+  // Handle button clicks
+  const handleClick = (value) => {
+    setResult((prev) => prev.concat(value));
   };
 
-  const clear = () => {
-    setResult("");
-  };
+  // Clear the input
+  const clear = () => setResult("");
 
-  const backspace = () => {
-    setResult(result.slice(0, -1));
-  };
+  // Backspace functionality
+  const backspace = () => setResult(result.slice(0, -1));
 
+  // Calculate the result
   const calculate = () => {
     try {
       setResult(eval(result).toString());
@@ -25,68 +24,65 @@ const App = () => {
     }
   };
 
+  // Define the button configurations
+  const buttons = [
+    {
+      label: "clear",
+      name: "clear",
+      className: "highlight",
+      id: "clear",
+      action: clear,
+    },
+    {
+      label: "c",
+      name: "backspace",
+      className: "highlight",
+      id: "backspace",
+      action: backspace,
+    },
+    { label: "÷", name: "/", className: "highlight", action: handleClick },
+    { label: "7", name: "7", action: handleClick },
+    { label: "8", name: "8", action: handleClick },
+    { label: "9", name: "9", action: handleClick },
+    { label: "×", name: "*", className: "highlight", action: handleClick },
+    { label: "4", name: "4", action: handleClick },
+    { label: "5", name: "5", action: handleClick },
+    { label: "6", name: "6", action: handleClick },
+    { label: "-", name: "-", className: "highlight", action: handleClick },
+    { label: "1", name: "1", action: handleClick },
+    { label: "2", name: "2", action: handleClick },
+    { label: "3", name: "3", action: handleClick },
+    { label: "+", name: "+", className: "highlight", action: handleClick },
+    { label: "0", name: "0", action: handleClick },
+    { label: ".", name: ".", action: handleClick },
+    {
+      label: "=",
+      name: "=",
+      className: "highlight",
+      id: "result",
+      action: calculate,
+    },
+  ];
+
   return (
     <div className="container">
       <form>
-        <input type="text" value={result} />
+        <input type="text" value={result} readOnly />
       </form>
       <div className="keypad">
-        <button className="highlight" onClick={clear} id="clear">
-          clear
-        </button>
-        <button className="highlight" onClick={backspace} id="backspace">
-          c
-        </button>
-        <button className="highlight" name="/" onClick={handleClick}>
-          &divide;
-        </button>
-        <button name="7" onClick={handleClick}>
-          7
-        </button>
-        <button name="8" onClick={handleClick}>
-          8
-        </button>
-        <button name="9" onClick={handleClick}>
-          9
-        </button>
-        <button className="highlight" name="*" onClick={handleClick}>
-          &times;
-        </button>
-        <button name="4" onClick={handleClick}>
-          4
-        </button>
-        <button name="5" onClick={handleClick}>
-          5
-        </button>
-        <button name="6" onClick={handleClick}>
-          6
-        </button>
-        <button className="highlight" name="-" onClick={handleClick}>
-          &ndash;
-        </button>
-        <button name="1" onClick={handleClick}>
-          1
-        </button>
-        <button name="2" onClick={handleClick}>
-          2
-        </button>
-        <button name="3" onClick={handleClick}>
-          3
-        </button>
-        <button className="highlight" name="+" onClick={handleClick}>
-          +
-        </button>
-        <button name="0" onClick={handleClick}>
-          0
-        </button>
-        <button name="." onClick={handleClick}>
-          .
-        </button>
-        <button className="highlight" onClick={calculate} id="result">
-          =
-        </button>
+        {buttons.map((button, index) => (
+          <button
+            key={index}
+            className={button.className}
+            id={button.id}
+            onClick={() => button.action(button.name)}
+          >
+            {button.label}
+          </button>
+        ))}
       </div>
     </div>
   );
 };
+
 export default App;
